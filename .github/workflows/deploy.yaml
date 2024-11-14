@@ -48,7 +48,7 @@ jobs:
           docker push ${{ env.ECR_REGISTRY }}/sample-microservice-workout:${IMAGE_TAG}
 
       - name: Update kubeconfig
-        run: aws eks update-kubeconfig --name sample-cluster --region ${{ env.AWS_REGION }}
+        run: aws eks update-kubeconfig --name sampleMicro --region ${{ env.AWS_REGION }}
 
       - name: Deploy user-service to EKS
         run: |
