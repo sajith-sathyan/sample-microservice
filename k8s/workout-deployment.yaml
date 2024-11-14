@@ -15,6 +15,5 @@ spec:
       containers:
       - name: workout-service
         image: 619071337012.dkr.ecr.ap-south-1.amazonaws.com/sample-microservice-workout
-        imagePullPolicy: Always
         ports:
         - containerPort: 3000
