@@ -21,8 +21,7 @@ jobs:
       - name: Install kubectl
         uses: azure/setup-kubectl@v2.0
         with:
-          version: 'v1.24.0' # default is latest stable
-        id: install
+          version: 'v1.24.0'
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -36,15 +35,17 @@ jobs:
 
       - name: Build, tag, and push user-service image
         run: |
+          IMAGE_TAG=${{ github.sha }}
           docker build -t ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ./user
-          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-user:${{ github.sha }}
-          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:${{ github.sha }}
+          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:${IMAGE_TAG}
+          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:${IMAGE_TAG}
 
       - name: Build, tag, and push workout-service image
         run: |
+          IMAGE_TAG=${{ github.sha }}
           docker build -t ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ./workout
-          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-workout:${{ github.sha }}
-          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-workout:${{ github.sha }}
+          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:${IMAGE_TAG}
+          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:${IMAGE_TAG}
 
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name sample-cluster --region ${{ env.AWS_REGION }}
