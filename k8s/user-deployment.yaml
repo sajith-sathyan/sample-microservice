@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: 619071337012.dkr.ecr.eu-north-1.amazonaws.com/sample-microservice-workout
+        image: 619071337012.dkr.ecr.ap-south-1.amazonaws.com/sample-microservice-user
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
