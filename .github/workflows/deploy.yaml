@@ -37,14 +37,14 @@ jobs:
       - name: Build, tag, and push user-service image
         run: |
           docker build -t ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ./user
-          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:${{ github.sha }}
+          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-user:${{ github.sha }}
           docker push ${{ env.ECR_REGISTRY }}/sample-microservice-user/user-service:${{ github.sha }}
 
       - name: Build, tag, and push workout-service image
         run: |
           docker build -t ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ./workout
-          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:${{ github.sha }}
-          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:${{ github.sha }}
+          docker tag ${{ env.ECR_REGISTRY }}/sample-microservice-workout/workout-service:latest ${{ env.ECR_REGISTRY }}/sample-microservice-workout:${{ github.sha }}
+          docker push ${{ env.ECR_REGISTRY }}/sample-microservice-workout:${{ github.sha }}
 
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --name sample-cluster --region ${{ env.AWS_REGION }}
